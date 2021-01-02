@@ -49,3 +49,6 @@ while True:
     count = 0
     shark = [nx, ny, 0]
 print(answer)
+
+
+sys.stdin.readline()
