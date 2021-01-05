@@ -1,48 +1,48 @@
+from collections import deque
 import sys
-import collections
-a = list(map(int, sys.stdin.readline().split()))
-arr = [list(map(int, sys.stdin.readline().split()))for i in range(a[1])]
-queue = collections.deque([])
-visited = [[0 for i in range(a[0])] for j in range(a[1])]
-cell_count = 0
-answer_count = 0
-flag = 0
-for idx, ival in enumerate(arr):
-    for jdx, jval in enumerate(ival):
-        if(jval == 1):
-            queue.append((idx, jdx))
-            visited[idx][jdx] = 1
-            cell_count += 1
-        if(jval == -1):
-            cell_count += 1
-queue.append((-2, -2))
-while queue:
-    x, y = queue.popleft()
-    if 0 < x + 1 < a[1] and visited[x+1][y] == 0 and arr[x+1][y] == 0:
-        visited[x+1][y] = visited[x][y] + 1
-        cell_count += 1
-        queue.append((x+1, y))
-        flag = 1
-    if 0 <= x - 1 and visited[x-1][y] == 0 and arr[x-1][y] == 0:
-        visited[x-1][y] = visited[x][y] + 1
-        cell_count += 1
-        queue.append((x-1, y))
-        flag = 1
-    if 0 < y + 1 < a[0] and visited[x][y + 1] == 0 and arr[x][y + 1] == 0:
-        visited[x][y + 1] = visited[x][y] + 1
-        cell_count += 1
-        queue.append((x, y + 1))
-        flag = 1
-    if 0 <= y - 1 and visited[x][y - 1] == 0 and arr[x][y - 1] == 0:
-        visited[x][y - 1] = visited[x][y] + 1
-        cell_count += 1
-        queue.append((x, y - 1))
-        flag = 1
-    if x == -2 and flag == 1:
-        answer_count += 1
-        queue.append((-2, -2))
-        flag = 0
-if cell_count == a[0]*a[1]:
-    print(answer_count)
-else:
+input = sys.stdin.readline
+dx = [1, -1, 0, 0, 0, 0]
+dy = [0, 0, -1, 1, 0, 0]
+dz = [0, 0, 0, 0, -1, 1]
+
+
+def bfs():
+    while q:
+        a, b, c = q.popleft()
+        visit[c][a][b] = 1
+        for i in range(6):
+            x = a + dx[i]
+            y = b + dy[i]
+            z = c + dz[i]
+            if 0 <= x < n and 0 <= y < m and 0 <= z < h and s[z][x][y] == 0 and visit[z][x][y] == 0:
+                q.append([x, y, z])
+                s[z][x][y] = s[c][a][b] + 1
+                visit[z][x][y] = 1
+
+
+m, n, h = map(int, input().split())
+s = [[] for i in range(h)]
+visit = [[[0 for i in range(m)] for i in range(n)] for i in range(h)]
+q = deque()
+isTrue = False
+st = False
+for i in range(h):
+    for j in range(n):
+        s[i].append(list(map(int, input().split())))
+for z in range(h):
+    for x in range(n):
+        for y in range(m):
+            if s[z][x][y] == 1:
+                q.append([x, y, z])
+bfs()
+max_num = 0
+for z in range(h):
+    for x in range(n):
+        for y in range(m):
+            if s[z][x][y] == 0:
+                isTrue = True
+            max_num = max(max_num, s[z][x][y])
+if isTrue == True:
     print(-1)
+else:
+    print(max_num - 1)
