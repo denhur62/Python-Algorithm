@@ -7,10 +7,6 @@ def operate(a, b, c):
         return a+b
 
 
-def fac(n):
-    return n*fac(n-1) if n > 1 else 1
-
-
 def solution(expression):
     number_list = []
     operate_list = []
@@ -27,8 +23,6 @@ def solution(expression):
                         ['+', '*', '-'], ['+', '-', '*']]
 
     answer = 0
-    operate_ex = operate_list.copy()
-    number_ex = number_list.copy()
     for i in range(len(priority_operate)):
         operate_ex = operate_list.copy()
         number_ex = number_list.copy()
