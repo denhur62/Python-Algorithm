@@ -18,7 +18,6 @@ def solution(expression):
             operate_list += val
             number_list += [int(expression[index:idx])]
             index = idx+1
-    length = len(set(operate_list))
     priority_operate = [['*', '-', '+'], ['*', '+', '-'], ['-', '*', '+'], ['-', '+', '*'],
                         ['+', '*', '-'], ['+', '-', '*']]
 
