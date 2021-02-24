@@ -1,7 +1,7 @@
 
 
 d = [0]*30001
-
+N = input()
 for i in range(6, 30000):
     d[i] = d[i-1]+1
     if i % 2 == 0:
@@ -11,4 +11,4 @@ for i in range(6, 30000):
     if i % 5 == 0:
         d[i] = min(d[i], d[i//5]+1)
 
-print(d[26])
+print(d[N])
