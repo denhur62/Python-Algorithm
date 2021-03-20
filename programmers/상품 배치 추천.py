@@ -6,7 +6,7 @@ answer = [0]*(N+1)
 for i in range(N):
     arr.append(list(map(int, sys.stdin.readline().rstrip())))
 
-for k in range(1, N):
+for k in range(1, N+1):
     for i in range(N-k+1):
         for j in range(N-k+1):
             flag = True
@@ -18,6 +18,6 @@ for k in range(1, N):
             if flag:
                 answer[k] += 1
 print("total:", sum(answer))
-for i in range(1, N):
+for i in range(1, N+1):
     if answer[i] != 0:
         print("size["+str(i)+"]: "+str(answer[i]))
