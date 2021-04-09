@@ -1,19 +1,10 @@
-from collections import deque
+from collections import deque, defaultdict
 import sys
 N, M = map(int, sys.stdin.readline().split())
-ladder = []
+ladder = defaultdict(int)
 for i in range(N+M):
-    NN, MM = map(int, input().split())
-    ladder.append((NN, MM))
-
-
-def check(a, b):
-    cnt = 0
-    for i in b:
-        if i[0] == a:
-            return cnt
-        cnt += 1
-    return False
+    NN, MM = map(int, sys.stdin.readline().split())
+    ladder[NN] = MM
 
 
 def dfs(start):
@@ -25,16 +16,16 @@ def dfs(start):
         s, c = queue.popleft()
         if s == 100:
             return c
-        elif s > 100:
-            continue
         else:
             for i in range(1, 7):
-                if s+i <= 100:
-                    c = check(s+i, ladder)
-                    if c:
-                        queue.append((ladder[c][1], c))
-                    else:
-                        queue.append((s+i, c+1))
+                ns = s+i
+                if ns <= 100:
+                    if ladder[ns] != 0 and visited[ladder[ns]] == False:
+                        visited[ladder[ns]] == True
+                        queue.append((ladder[ns], c+1))
+                    elif visited[ns] == False:
+                        visited[ns] == True
+                        queue.append((ns, c+1))
 
 
 print(dfs(1))
