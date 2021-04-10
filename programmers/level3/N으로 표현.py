@@ -1,29 +1,21 @@
 def solution(N, number):
     answer = -1
-    dp = []
+    first = lambda x,y:int(str(x)*y)
+    oper= lambda x,y:[x+y,x-y,x*y,x//y if y!=0 else 0]
+    DP=[0]
+    for i in range(1,9):
+        temp=set([first(N,i)])
+        for j in range(1,i):
+            k=i-j
+            for a in DP[j]:
+                for b in DP[k]:
+                    temp.update(oper(a,b))
 
-    for i in range(1, 9):
-        all_case = set()
-        all_case.add(int(str(N) * i))
-
-        for j in range(0, i-1):
-            for op1 in dp[j]:
-                for op2 in dp[-j-1]:
-                    all_case.add(op1 - op2)
-                    all_case.add(op1 + op2)
-                    all_case.add(op1 * op2)
-                    if op2 != 0:
-                        all_case.add(op1 // op2)
-
-        if number in all_case:
-            answer = i
-            break
-
-        dp.append(all_case)
-        print(dp)
+        if number in temp:
+            return i
+        DP.append(temp)
+        print(DP)
     return answer
 
-
-N = 4
-number = 17
-print(solution(N, number))
+N, number= 5, 12
+print(solution(N,number))
