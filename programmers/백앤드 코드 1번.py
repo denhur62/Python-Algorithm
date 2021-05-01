@@ -1,12 +1,10 @@
 import sys
 
 q = int(input())
-def lam(y, x): return x-y
-
 
 for i in range(q):
     N, M = map(int, sys.stdin.readline().split())
-    arr = set(map(int, sys.stdin.readline().split()))
+    arr = list(map(int, sys.stdin.readline().split()))
     if N == 0:
         print(0)
         continue
