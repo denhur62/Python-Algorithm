@@ -1,18 +1,25 @@
 
 def solution(prices):
-
+    prices.reverse()
     answer = []
-    for i in range(len(prices)):
-        temp = prices[i]
-        count = 0
-        for j in range(i+1, len(prices)):
-            count += 1
-            if temp > prices[j]:
-                break
-        answer.append(count)
+    stack = []
+    j = 0
+    for i in prices:
+        print(stack)
+        while stack and prices[stack[-1]] >= i:
+            stack.pop()
+        if not stack:
+            answer.append(j)
+        else:
+            answer.append(j-stack[-1])
+        stack.append(j)
+        j += 1
+    answer.reverse()
     return answer
 
 
-prices = [1, 2, 3, 2, 3, 1]
+# prices=[3,2,3,2,1]
+prices = [1, 2, 3, 2, 3]
 
+prices1 = [1, 2, 3, 2, 3, 1]
 print(solution(prices))
