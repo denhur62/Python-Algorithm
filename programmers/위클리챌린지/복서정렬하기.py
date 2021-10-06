@@ -1,18 +1,16 @@
-def solution(weights, head2head):
+def solution(scores):
     answer = []
-    lh=len(head2head)
-    temp=[]
-    for i in range(lh):
-        win=0
-        for j in range(lh):
-            if weights[i] < weights[j] and head2head[i][j]=="W": win+=1
-            N=head2head[i].count("N")
-        if N==lh:
-            temp.append([0.0,win,weights[i]])
-        else:
-            temp.append([head2head[i].count("W")/(lh-head2head[i].count("N")),win,weights[i]])
-    dic={a+1:b for a,b in enumerate(temp) }
-    dic=sorted(dic.items(),key = lambda x:x[1],reverse=True)
-
-    answer=[x[0] for x in dic]
+    ls=len(scores)
+    for i in range(ls):
+        temp=[]
+        cnt=0
+        for j in range(ls):
+            if j==i and len(set(scores[i]))==len(scores[i]) 
+            and max(scores[i])== scores[i][j]:
+               cnt+=1
+            else:
+                temp.append(ls[i][j])
+        answer.append(sum(temp)/(ls-cnt))
+    print(answer)
     return answer
+print(solution([1,2,3,4]))
