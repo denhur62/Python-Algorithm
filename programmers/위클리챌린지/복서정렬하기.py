@@ -5,8 +5,7 @@ def solution(scores):
         temp=[]
         cnt=0
         for j in range(ls):
-            if j==i and len(set(scores[i]))==len(scores[i]) 
-            and max(scores[i])== scores[i][j]:
+            if j==i and len(set(scores[i]))==len(scores[i]) and max(scores[i])== scores[i][j]:
                cnt+=1
             else:
                 temp.append(ls[i][j])
