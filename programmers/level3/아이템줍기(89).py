@@ -34,7 +34,6 @@ def bfs(rectangle,startY,startX,itemY,itemX,room):
     visited[startY][startX]=1
     while queue:
         y,x,cnt,te =queue.popleft()
-        print(y,x)
         if y==itemY and x==itemX:
             return cnt
         for i in range(4):
@@ -49,6 +48,15 @@ def bfs(rectangle,startY,startX,itemY,itemX,room):
 
 def solution(rectangle, characterX, characterY, itemX, itemY):
     temp=[]
+    rec=[]
+    for i in rectangle:
+        rec.append(list(map(lambda x:x*2 ,i)))
+    rectangle=rec
+    characterX*=2
+    characterY*=2
+    itemX*=2
+    itemY*=2
+
     for x1,y1,x2,y2 in rectangle:
         room=set()
         for y in range(y1,y2+1):
@@ -59,7 +67,7 @@ def solution(rectangle, characterX, characterY, itemX, itemY):
             room.add((y2,x))
         temp.append(room)
     answer= bfs(rectangle,characterY,characterX,itemY,itemX,temp)
-    return answer
+    return answer//2
 
 
 rectangle=[[2,2,5,5],[1,3,6,4],[3,1,4,6]]
