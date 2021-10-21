@@ -1,42 +1,42 @@
 import sys
-from collections import Counter
-from itertools import combinations
-N, M = map(int, sys.stdin.readline().split())
-
-arr = []
-
-for i in range(int(N)):
-    temp = sys.stdin.readline().rstrip()
-    arr.append(temp[4:-4])
-if M-5 < 0:
+N , K =map(int,input().split())
+words=[]
+for i in range(N):
+    temp=sys.stdin.readline()
+    temp=temp[4:-5]
+    words.append(temp)
+if K<5:
     print(0)
     exit(0)
+if K==26:
+    print(N)
+    exit(0)
 
-middle = []
-learn = 'antic'
-answer2 = ''
-for i in arr:
-    answer = ''
-    for j in i:
-        if j not in learn and j not in answer:
-            answer += j
-    middle.append(answer)
-    answer2 += answer
-temp = list(combinations(answer2, M-5))
-max_count = 0
-answer = 0
-for i in temp:
-    a = "".join(i)
-    max_count = 0
-    for j in middle:
-        count = 0
-        for k in j:
-            if k in a:
-                count += 1
-        if count == len(j):
-            max_count += 1
+learn=[0]*26
+answer=0
+def dfs(cnt,idx):
+    global answer
+    if cnt==K-5:
+        temp=0
+        for word in words:
+            flag=True
+            for w in word:
+                if learn[ord(w)-ord('a')]==0:
+                    flag=False
+                    break
+            if flag:
+                temp+=1
+        answer=max(answer,temp)
+        return 
 
-    if answer < max_count:
-        answer = max_count
-
-print(arr)
+    for k in range(idx,26):
+        if learn[k]==0:
+            learn[k]=1
+            dfs(cnt+1,k)
+            learn[k]=0
+        
+    
+for i in ('i','a','n','c','t'):
+    learn[ord(i)-ord('a')]=1
+dfs(0,0)
+print(answer)
