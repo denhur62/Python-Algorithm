@@ -3,7 +3,7 @@ def solution(n, m, section):
     queue = deque(section)
     answer = 0
     while queue:
-        print(queue)
+        
         first= queue[0]
         while queue and first+m >queue[0]:
             queue.popleft()
