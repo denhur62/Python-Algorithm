@@ -1,29 +1,37 @@
+def isWin(board, x, y):
+    leftY, rightY = (y - 1) % 3, (y + 1) % 3
+    if board[x][y] == board[x][leftY] == board[x][rightY]:
+        return True
+
+    upX, downX = (x - 1) % 3, (x + 1) % 3
+    if board[x][y] == board[upX][y] == board[downX][y]:
+        return True
+
+    if (board[x][y] == board[upX][leftY] == board[downX][rightY]) or (board[x][y] == board[upX][rightY] == board[downX][leftY]):
+        return True
+
+    return False
+
 def solution(board):
-    flat_board = "".join(board)
-    o_cnt = flat_board.count('O')
-    x_cnt = flat_board.count('X')
-    if (o_cnt == x_cnt and find_win(flat_board)== 'x_win') \
-        or (o_cnt -1 == x_cnt and find_win(flat_board) == 'o_win'):
-        return 1
-    else:
-        if x_cnt > o_cnt:
+    n = len(board)
+
+    oList, xList = [], []
+    for x in range(n):
+        for y in range(n):
+            if board[x][y] == 'O':
+                oList.append((x, y))
+            elif board[x][y] == 'X':
+                xList.append((x, y))
+
+    if len(oList) < len(xList) or len(oList) >= (len(xList) + 2):
+        return 0
+
+    for x, y in oList:
+        if isWin(board, x, y) and len(xList) != (len(oList) - 1):
             return 0
-        else:
-            return 1
 
-    
-def find_win(fb):
-    if (fb[0]=='O' and fb[3]=='O' and fb[6]=='O') \
-        or (fb[1]=='O' and fb[4]=='O' and fb[7]=='O') \
-        or (fb[2]=='O' and fb[5]=='O' and fb[8]=='O') \
-        or (fb[0]=='O' and fb[4]=='O' and fb[8]=='O') \
-        or (fb[2]=='O' and fb[4]=='O' and fb[6]=='O') :
-        return 'o_win'
-    elif (fb[0]=='X' and fb[3]=='X' and fb[6]=='X') \
-        or (fb[1]=='X' and fb[4]=='X' and fb[7]=='X') \
-        or (fb[2]=='X' and fb[5]=='X' and fb[8]=='X') \
-        or (fb[0]=='X' and fb[4]=='X' and fb[8]=='X') \
-        or (fb[2]=='X' and fb[4]=='X' and fb[6]=='X') :
-        return 'x_win'
+    for x, y in xList:
+        if isWin(board, x, y) and len(xList) != len(oList):
+            return 0
 
-print(solution(["OOO", "...", "XXX"]))
+    return 1
