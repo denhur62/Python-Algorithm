@@ -5,16 +5,20 @@ def solution(weights):
     answer=0
     for i in weights:
         wl[i] +=1
-        wl[i*2] +=1 
-        wl[i*3] +=1
-        wl[i*4] +=1
-    for idx,i in enumerate(wl):
-        if i!=0:
-            print(idx,i)
+        wl[int(i*1.5)] +=1
+        wl[i*2] +=1
+        wl[int(i*2/3)] +=1
+        wl[int(i*4/3)] +=1 
+        wl[int(i*0.5)] +=1
+        wl[int(i*3/4)] +=1
+
     for i in weights:
-        if wl[i] >=2:
-            answer += math.comb(wl[i],2)
+        print(i, wl[i])
+        if wl[i]:
+            answer+=1
+
 
     return answer
 
-print(solution([100,180,360,100,270]))
+print(solution([100,180,360,100,270,540]))
+
